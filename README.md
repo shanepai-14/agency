@@ -19,8 +19,17 @@ npm run build     # production build into /dist
 npm run preview   # preview the production build locally
 ```
 
-### Deployment note
-This is a single-page app using browser routing. Configure your host to serve `index.html` for all routes (e.g. Netlify `_redirects`: `/* /index.html 200`, Vercel rewrites, or Nginx `try_files $uri /index.html`).
+### Deploying to Vercel
+The project is ready for Vercel with no extra setup:
+
+1. In Vercel, choose **Add New → Project** and import the GitHub repository.
+2. Leave the detected settings as they are (Framework: Vite, Build: `npm run build`, Output: `dist`). `vercel.json` sets these too.
+3. Optional: under **Environment Variables**, add `VITE_API_URL` once a real API exists.
+4. Click **Deploy**. After that, every push to `main` deploys automatically.
+
+`vercel.json` rewrites every route to `index.html`, so deep links like `/vacancies/chief-officer-bulk-001` work on refresh. It also gives the hashed files in `/assets` long-term cache headers.
+
+On other hosts, serve `index.html` for all routes (e.g. Netlify `_redirects`: `/* /index.html 200`, or Nginx `try_files $uri /index.html`).
 
 ---
 
